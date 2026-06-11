@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <title>The Color Collector — Being Yourself</title>
 <style>
-  body { margin: 0; min-height: 100vh; display: flex; align-items: center;
-         justify-content: center; background: #1a1c24; font-family: Georgia, serif; color: #fff; }
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+         justify-content: center; background: #1a1c24; font-family: Georgia, serif; color: #fff;
+         padding: 24px 12px; box-sizing: border-box; }
+  header { text-align: center; margin-bottom: 18px; }
+  header h1 { margin: 0; font-size: 34px;
+              background: linear-gradient(90deg,#ff5a5a,#eebc2e,#5ad06a,#4aa8ff,#b06af0);
+              -webkit-background-clip: text; background-clip: text; color: transparent; }
+  header p { margin: 6px 0 0; opacity: .8; font-style: italic; }
+  .about { max-width: 700px; margin-top: 18px; text-align: center; line-height: 1.6;
+           font-size: 15px; opacity: .85; }
+  footer { margin-top: 16px; font-size: 13px; opacity: .5; }
   #wrap { position: relative; }
   canvas { display: block; border-radius: 8px; }
   #score { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,.7);
@@ -25,6 +34,10 @@
 </style>
 </head>
 <body>
+<header>
+  <h1>The Color Collector</h1>
+  <p>A game about being yourself</p>
+</header>
 <div id="wrap">
   <canvas id="game" width="768" height="576"></canvas>
   <div id="score">Crystals: 0 / 4</div>
@@ -52,6 +65,13 @@
     </div>
   </div>
 </div>
+
+<p class="about">The world turned gray when everyone tried to be the same. Explore the map,
+talk to the four guardians, and answer their questions about self-expression, independence,
+and confidence. Every crystal you earn brings color back to the world — because being
+proud of who you are makes everything brighter.</p>
+
+<footer>Capstone Project — theme: “Being Yourself”</footer>
 
 <script>
 // map tiles: T = tree, f = flower, . = grass (16 x 12)
