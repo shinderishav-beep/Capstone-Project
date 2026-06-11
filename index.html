@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hue &amp; You — Restore the Color</title>
+<meta name="description" content="A quest to bring color back to a gray world by being yourself. Collect four crystals, meet four guardians, and discover what person you are.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ======================= TITLE SCREEN ======================= -->
+<div id="titleScreen" class="screen">
+  <div class="title-card">
+    <h1 class="game-title"><span class="hue">HUE</span> &amp; <span class="you">YOU</span></h1>
+    <p class="subtitle">Restore the Color · Be Yourself</p>
+
+    <div class="story">
+      <p>Long ago, this world glowed with every color you can imagine.
+      But little by little, people stopped expressing who they really were.
+      They copied each other's clothes, repeated each other's opinions,
+      and hid what made them different — until one morning,
+      <strong>every color in the world faded to gray.</strong></p>
+
+      <p>Only one spark of color remains: <strong>you</strong>.</p>
+
+      <p>Four magical crystals lie hidden across the land, each guarded by
+      a character who remembers what it means to be yourself. Earn all four
+      crystals and color will return — and along the way, your choices will
+      reveal <em>what kind of person you truly are</em>.</p>
+    </div>
+
+    <div class="name-row">
+      <label for="nameInput">What's your name, hero?</label>
+      <input id="nameInput" type="text" maxlength="14" placeholder="Hero" autocomplete="off">
+    </div>
+
+    <button id="startBtn" class="big-btn">⟡ Begin the Quest ⟡</button>
+
+    <div class="controls-hint">
+      <span><b>Move:</b> WASD / Arrow keys</span>
+      <span><b>Talk:</b> E / Space / Enter</span>
+      <span>Answer honestly — there are no wrong answers, only <em>your</em> answers.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= GAME ======================= -->
+<div id="gameWrap" class="hidden">
+  <div id="hud">
+    <div class="hud-left">
+      <span id="hudName">Hero</span>
+      <span id="hudObjective">Find the 4 Guardians</span>
+    </div>
+    <div class="hud-crystals" aria-label="Crystals collected">
+      <div class="crystal-slot" id="slot0" title="Crystal of Paths"><div class="gem"></div></div>
+      <div class="crystal-slot" id="slot1" title="Crystal of Choice"><div class="gem"></div></div>
+      <div class="crystal-slot" id="slot2" title="Crystal of Voice"><div class="gem"></div></div>
+      <div class="crystal-slot" id="slot3" title="Crystal of Expression"><div class="gem"></div></div>
+    </div>
+    <div class="hud-right">
+      <div class="color-meter" title="Color restored">
+        <div class="color-meter-fill" id="colorMeterFill"></div>
+        <span class="color-meter-label" id="colorMeterLabel">0% color</span>
+      </div>
+      <button id="muteBtn" title="Toggle sound" aria-label="Toggle sound">🔊</button>
+    </div>
+  </div>
+
+  <div id="canvasHolder">
+    <canvas id="game" width="960" height="672"></canvas>
+
+    <!-- interaction prompt -->
+    <div id="prompt" class="hidden">Press <b>E</b> to talk</div>
+
+    <!-- toast messages -->
+    <div id="toast" class="hidden"></div>
+
+    <!-- dialog box -->
+    <div id="dialog" class="hidden">
+      <canvas id="portrait" width="84" height="84"></canvas>
+      <div class="dialog-body">
+        <div id="dialogName"></div>
+        <div id="dialogText"></div>
+        <div id="dialogQuote" class="hidden">
+          <div class="quote-mark">“</div>
+          <div id="quoteText"></div>
+          <div id="quoteSource"></div>
+        </div>
+        <div class="dialog-next" id="dialogNext">▼ continue</div>
+      </div>
+    </div>
+
+    <!-- touch controls -->
+    <div id="touchControls">
+      <div id="dpad">
+        <button class="dbtn" id="dUp" aria-label="Up">▲</button>
+        <button class="dbtn" id="dLeft" aria-label="Left">◀</button>
+        <button class="dbtn" id="dRight" aria-label="Right">▶</button>
+        <button class="dbtn" id="dDown" aria-label="Down">▼</button>
+      </div>
+      <button id="actionBtn" aria-label="Talk">TALK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= CHALLENGE MODAL ======================= -->
+<div id="challengeOverlay" class="overlay hidden">
+  <div id="challengeModal">
+    <h2 id="challengeTitle"></h2>
+    <p id="challengeDesc"></p>
+    <div id="challengeBody"></div>
+  </div>
+</div>
+
+<!-- ======================= ENDING SCREEN ======================= -->
+<div id="endingScreen" class="overlay hidden">
+  <div id="endingCard">
+    <h1 class="ending-title">✨ The World Is in Color Again! ✨</h1>
+    <p class="ending-sub" id="endingHeroLine"></p>
+
+    <div class="result-card">
+      <div class="result-label">Your quest revealed what person you are…</div>
+      <div class="result-name" id="resultName"></div>
+      <div class="result-desc" id="resultDesc"></div>
+    </div>
+
+    <div class="ending-choices">
+      <h3>The choices that made you, <em>you</em>:</h3>
+      <ul id="choiceRecap"></ul>
+    </div>
+
+    <div class="ending-lessons">
+      <h3>The four lessons of the crystals:</h3>
+      <ul id="lessonRecap"></ul>
+    </div>
+
+    <p class="ending-message">
+      When everyone tries to be the same, the world loses its light.
+      But when you are proud of who you are, make your own choices, and
+      express yourself without fear, you give everyone around you permission
+      to shine too. <strong>Embracing individuality is what makes the world
+      a better, brighter place — so never be afraid to be yourself.</strong>
+    </p>
+
+    <button id="replayBtn" class="big-btn">⟡ Play Again ⟡</button>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/challenges.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
