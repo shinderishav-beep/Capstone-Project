@@ -220,6 +220,20 @@ function draw() {
     ctx.font = "16px Georgia"; ctx.fillStyle = "#fff";
     ctx.fillText("Press E to talk", player.x - 50, player.y - 30);
   }
+  // how-to-play text, shown until the first crystal is collected
+  if (!paused && crystals === 0) {
+    ctx.fillStyle = "rgba(0,0,0,.65)";
+    ctx.fillRect(184, 48, 400, 110);
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.font = "bold 18px Georgia";
+    ctx.fillText("HOW TO PLAY", 384, 75);
+    ctx.font = "15px Georgia";
+    ctx.fillText("Move with the arrow keys", 384, 100);
+    ctx.fillText("Walk up to a guardian and press E to talk", 384, 122);
+    ctx.fillText("Collect all 4 crystals to bring back the color!", 384, 144);
+    ctx.textAlign = "left";
+  }
 }
 
 setInterval(() => { update(); draw(); }, 1000 / 60);
