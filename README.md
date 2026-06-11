@@ -34,10 +34,10 @@ Open **`index.html`** in any modern browser — no install or build step needed.
 
 | Crystal | Guardian & Location | Book Quote | Challenge |
 |---|---|---|---|
-| Uniqueness | Iris, the gray forest (NW) | *Happy Birthday to You!* — Dr. Seuss | Choose *your* favorite color, not the popular one |
-| Independence | Wren, the hedge maze (NE) | *Alice's Adventures in Wonderland* — Lewis Carroll | Find your own path through the maze |
-| Expression | Sol, the meadow (SW) | *Little Women* — Louisa May Alcott | Customize your character's appearance |
-| Confidence | Elder Brook, the lake (SE) | *Harry Potter and the Chamber of Secrets* — J.K. Rowling | Name a personal strength and own it |
+| Uniqueness | Iris, the gray forest (NW) | "I would like to baptize myself under a new name, a name more like the real me." — *The House on Mango Street* ("My Name"), Sandra Cisneros | Choose *your* favorite color, not the popular one |
+| Independence | Wren, the hedge maze (NE) | "I was so afraid of death that I forgot to live." — *Puss in Boots: The Last Wish* | Find your own path through the maze |
+| Expression | Sol, the meadow (SW) | "I'm different, and I think I finally know what to do with that." — *Spider-Man: Across the Spider-Verse* | Customize your character's appearance |
+| Confidence | Elder Brook, the lake (SE) | "I want to die as myself." — *The Hunger Games*, Suzanne Collins (Peeta) | Name a personal strength and own it |
 
 Each crystal collected brings color back to one part of the world — trees turn
 green, flowers bloom, water turns blue — until everything is vibrant again and
