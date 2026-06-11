@@ -18,30 +18,29 @@ The game's core message is rooted in the idea that **authenticity is strength**.
 
 ## The Game: *The Color Collector*
 
-A 2D adventure where the world has turned **gray** because everyone tried to be
-the same as everyone else. You play a character on a mission to restore color by
-collecting **four magical crystals**, each guarded by a character who shares a
-quote from a fictional book and offers a challenge about being yourself.
+A simple, short 2D game (under 5 minutes to finish). The world has turned
+**gray** because everyone tried to be the same as everyone else. Walk to the
+**four guardians**, read their quote about being yourself, answer one question,
+and collect their crystal — each one brings color back to part of the world.
 
 ### How to Play
 
-Open **`index.html`** in any modern browser — no install or build step needed.
+Open **`index.html`** in any browser — no install needed.
 
-- **Move:** Arrow keys or WASD
-- **Talk / interact:** E (or Space / Enter) near a guardian
+- **Move:** Arrow keys
+- **Talk:** E (when near a guardian)
 
-### The Four Crystals
+### The Four Guardians
 
-| Crystal | Guardian & Location | Book Quote | Challenge |
-|---|---|---|---|
-| Uniqueness | Iris, the gray forest (NW) | "I would like to baptize myself under a new name, a name more like the real me." — *The House on Mango Street* ("My Name"), Sandra Cisneros | Choose *your* favorite color, not the popular one |
-| Independence | Wren, the hedge maze (NE) | "I was so afraid of death that I forgot to live." — *Puss in Boots: The Last Wish* | Find your own path through the maze |
-| Expression | Sol, the meadow (SW) | "I'm different, and I think I finally know what to do with that." — *Spider-Man: Across the Spider-Verse* | Customize your character's appearance |
-| Confidence | Elder Brook, the lake (SE) | "I want to die as myself." — *The Hunger Games*, Suzanne Collins (Peeta) | Name a personal strength and own it |
+| Guardian | Quote | Challenge |
+|---|---|---|
+| Top-left | "I would like to baptize myself under a new name, a name more like the real me." — *The House on Mango Street* ("My Name"), Sandra Cisneros | Pick *your* favorite color, not the popular one |
+| Top-right | "I was so afraid of death that I forgot to live." — *Puss in Boots: The Last Wish* | Choose your own path, not the crowd's road |
+| Bottom-left | "I'm different, and I think I finally know what to do with that." — *Spider-Man: Across the Spider-Verse* | Pick a new outfit color for your character |
+| Bottom-right | "I want to die as myself." — *The Hunger Games*, Suzanne Collins (Peeta) | Name a strength that is truly yours |
 
-Each crystal collected brings color back to one part of the world — trees turn
-green, flowers bloom, water turns blue — until everything is vibrant again and
-the final message appears: **embracing individuality makes the world a better
+When all four crystals are collected, the whole world is colorful again and the
+final message appears: **being proud of who you are makes the world a brighter
 place.**
 
 ## Status
