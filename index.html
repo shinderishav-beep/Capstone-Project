@@ -4,25 +4,21 @@
 <meta charset="UTF-8">
 <title>The Color Collector — Being Yourself</title>
 <style>
-  body {
-    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; background: #1a1c24;
-    font-family: Georgia, serif; color: #fff;
-  }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center;
+         justify-content: center; background: #1a1c24; font-family: Georgia, serif; color: #fff; }
   #wrap { position: relative; }
   canvas { display: block; border-radius: 8px; }
   #score { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,.7);
-           padding: 6px 14px; border-radius: 8px; font-size: 16px; }
+           padding: 6px 14px; border-radius: 8px; }
   .overlay { position: absolute; inset: 0; display: flex; align-items: center;
              justify-content: center; background: rgba(0,0,0,.7); }
-  .panel { max-width: 480px; background: #23262f; border-radius: 12px;
+  .panel { max-width: 460px; background: #23262f; border-radius: 12px;
            padding: 24px 28px; line-height: 1.5; }
-  .panel h1 { margin: 0 0 10px; font-size: 24px; }
   blockquote { margin: 12px 0; padding: 10px 14px; border-left: 4px solid gold;
                background: rgba(255,255,255,.08); font-style: italic; }
   cite { display: block; margin-top: 6px; font-size: 13px; font-style: normal; opacity: .8; }
-  button { display: block; width: 100%; margin-top: 8px; font: inherit; font-size: 15px;
-           color: #fff; background: #3a3f4f; border: 1px solid #666; border-radius: 8px;
+  button { display: block; width: 100%; margin-top: 8px; font: inherit; color: #fff;
+           background: #3a3f4f; border: 1px solid #666; border-radius: 8px;
            padding: 9px 13px; cursor: pointer; text-align: left; }
   button:hover { background: #4d5468; }
   .hidden { display: none; }
@@ -35,11 +31,11 @@
 
   <div id="intro" class="overlay">
     <div class="panel">
-      <h1>The Color Collector</h1>
+      <h2>The Color Collector</h2>
       <p>The world turned <b>gray</b> when everyone tried to be the same as everyone else.</p>
-      <p>Four guardians hold magic crystals. Talk to each one, learn their lesson about
-         <b>being yourself</b>, and bring the color back!</p>
-      <p><b>Move:</b> arrow keys &nbsp;|&nbsp; <b>Talk:</b> E (when near a guardian)</p>
+      <p>Talk to the four guardians, learn their lessons about <b>being yourself</b>,
+         and bring the color back!</p>
+      <p><b>Move:</b> arrow keys &nbsp;|&nbsp; <b>Talk:</b> E</p>
       <button onclick="closeBox('intro')">Start</button>
     </div>
   </div>
@@ -48,10 +44,9 @@
 
   <div id="ending" class="overlay hidden">
     <div class="panel">
-      <h1>The Color Is Back!</h1>
-      <p>You chose your own favorite color, your own path, your own look, and your own self.</p>
+      <h2>The Color Is Back!</h2>
       <p><b>When people are proud of who they are, make their own choices, and aren't afraid
-         to express themselves, the whole world becomes a brighter place.</b></p>
+         to express themselves, the world becomes a brighter place.</b></p>
       <p><i>Be the real you — and don't forget to live.</i></p>
       <button onclick="location.reload()">Play Again</button>
     </div>
@@ -59,83 +54,76 @@
 </div>
 
 <script>
-// ----- the map: T = tree, f = flower, . = grass (16 x 12 tiles) -----
+// map tiles: T = tree, f = flower, . = grass (16 x 12)
 const MAP = [
   "TTTTTTTTTTTTTTTT",
   "T..............T",
   "T.f..........f.T",
-  "T..0........1..T",
+  "T..............T",
   "T..............T",
   "T....f....f....T",
   "T..............T",
   "T.f..........f.T",
-  "T..2........3..T",
+  "T..............T",
   "T..............T",
   "T.f..........f.T",
   "TTTTTTTTTTTTTTTT",
 ];
 const TILE = 48;
 
-// ----- the four guardians: a quote and one challenge each -----
+// four guardians: a book quote + one question each
 const GUARDIANS = [
   { x: 3, y: 3, color: "#e07b39", crystal: "#ff5a5a",
-    name: "Guardian",
     quote: "I would like to baptize myself under a new name, a name more like the real me.",
     book: "Sandra Cisneros, The House on Mango Street (“My Name”)",
-    question: "Everyone in town picks blue because it's the most popular. What color do YOU really love?",
+    question: "Everyone picks blue because it's the most popular. What color do YOU really love?",
     options: [
-      { text: "Blue — everyone picks it", wrong: "Is that YOUR favorite, or everyone else's? Choose from your heart!" },
-      { text: "Orange, like a sunset", done: "A color that is truly yours!" },
-      { text: "Green, like the forest", done: "A color that is truly yours!" },
-      { text: "Purple, like twilight", done: "A color that is truly yours!" },
+      { text: "Blue — everyone picks it", wrong: true },
+      { text: "Orange, like a sunset" },
+      { text: "Green, like the forest" },
+      { text: "Purple, like twilight" },
     ] },
   { x: 12, y: 3, color: "#3fae7a", crystal: "#5ad06a",
-    name: "Guardian",
     quote: "I was so afraid of death that I forgot to live.",
     book: "Puss in Boots: The Last Wish",
-    question: "Two roads lead home: the crowded road everyone takes, and a small trail no one has tried. Which do you walk?",
+    question: "Two roads lead home. Which do you walk?",
     options: [
-      { text: "The crowded road — it's safer", wrong: "Safe... but is it YOURS? Don't be afraid to live your own way." },
-      { text: "The small trail — my own way", done: "Yes! Your path belongs to you." },
+      { text: "The crowded road everyone takes", wrong: true },
+      { text: "A small trail of my own" },
     ] },
   { x: 3, y: 8, color: "#d05a9b", crystal: "#b06af0",
-    name: "Guardian",
     quote: "I'm different, and I think I finally know what to do with that.",
     book: "Spider-Man: Across the Spider-Verse",
-    question: "Show the world who you are! Pick a new outfit color for yourself:",
+    question: "Show the world who you are! Pick a new outfit color:",
     options: [
-      { text: "Red", color: "#e04848", done: "It's so YOU!" },
-      { text: "Teal", color: "#2ab5b0", done: "It's so YOU!" },
-      { text: "Yellow", color: "#eebc2e", done: "It's so YOU!" },
-      { text: "Purple", color: "#7d4ae0", done: "It's so YOU!" },
+      { text: "Red", color: "#e04848" },
+      { text: "Teal", color: "#2ab5b0" },
+      { text: "Yellow", color: "#eebc2e" },
+      { text: "Purple", color: "#7d4ae0" },
     ] },
   { x: 12, y: 8, color: "#4a7fd0", crystal: "#4aa8ff",
-    name: "Guardian",
     quote: "I want to die as myself.",
     book: "Suzanne Collins, The Hunger Games",
-    question: "Last lesson: what is a strength that is truly YOURS?",
+    question: "What is a strength that is truly YOURS?",
     options: [
-      { text: "Kindness", done: "Own it — it was never anyone else's!" },
-      { text: "Creativity", done: "Own it — it was never anyone else's!" },
-      { text: "Courage", done: "Own it — it was never anyone else's!" },
-      { text: "Curiosity", done: "Own it — it was never anyone else's!" },
+      { text: "Kindness" }, { text: "Creativity" },
+      { text: "Courage" }, { text: "Curiosity" },
     ] },
 ];
 
-// ----- game state -----
 const ctx = document.getElementById("game").getContext("2d");
 const player = { x: 7.5 * TILE, y: 5.5 * TILE, color: "#999999" };
 const keys = {};
 let crystals = 0;
-let paused = true;            // true while a box is open
-const sat = [0.15, 0.15, 0.15, 0.15];   // color level of each map quarter
+let paused = true;                       // true while a box is open
+const sat = [0.15, 0.15, 0.15, 0.15];    // color level of each map quarter
 
-document.onkeydown = e => { keys[e.key] = true; if (e.key === "e" || e.key === "E") talk(); };
+document.onkeydown = e => { keys[e.key] = true; if (e.key.toLowerCase() === "e") talk(); };
 document.onkeyup = e => keys[e.key] = false;
 
 function closeBox(id) { document.getElementById(id).classList.add("hidden"); paused = false; }
 
-// which quarter of the map a tile is in (0=NW 1=NE 2=SW 3=SE)
+// which quarter a tile is in (0=NW 1=NE 2=SW 3=SE)
 const quarter = (x, y) => (x < 8 ? 0 : 1) + (y < 6 ? 0 : 2);
 
 // fade a color toward gray (s = 0 gray, 1 full color)
@@ -145,32 +133,30 @@ function fade(hex, s) {
   return `rgb(${gray + (r - gray) * s},${gray + (g - gray) * s},${gray + (b - gray) * s})`;
 }
 
-// ----- talking and challenges -----
 function nearGuardian() {
   return GUARDIANS.find(g => Math.hypot((g.x + .5) * TILE - player.x, (g.y + .5) * TILE - player.y) < TILE * 1.5);
 }
 
-function talk() {
+// quote + question in one box; a good answer earns the crystal
+function talk(hint) {
   const g = nearGuardian();
-  if (paused || !g) return;
-  if (g.collected) return showBox(g, "<p>Doesn't the color look wonderful? Keep being yourself!</p>", [["Bye!", () => closeBox("dialog")]]);
-  showBox(g,
-    `<blockquote>“${g.quote}”<cite>— ${g.book}</cite></blockquote>`,
-    [["Tell me more...", () => askQuestion(g)]]);
+  if (!g || (paused && !hint)) return;
+  if (g.collected) return showBox("<p>Keep being yourself!</p>", [["Bye!", () => closeBox("dialog")]]);
+  showBox(
+    `<blockquote>“${g.quote}”<cite>— ${g.book}</cite></blockquote>` +
+    (hint ? `<p><i>Is that really YOUR choice? Try again, from the heart.</i></p>` : "") +
+    `<p>${g.question}</p>`,
+    g.options.map(o => [o.text, () => {
+      if (o.wrong) return talk(true);
+      if (o.color) player.color = o.color;
+      collect(g);
+    }]));
 }
 
-function askQuestion(g) {
-  showBox(g, `<p>${g.question}</p>`, g.options.map(o => [o.text, () => {
-    if (o.wrong) return showBox(g, `<p>${o.wrong}</p>`, [["Let me try again", () => askQuestion(g)]]);
-    if (o.color) player.color = o.color;
-    showBox(g, `<p>${o.done}</p><p><b>You earned a crystal!</b></p>`, [["Take it ✦", () => collect(g)]]);
-  }]));
-}
-
-function showBox(g, html, buttons) {
+function showBox(html, buttons) {
   paused = true;
   const box = document.getElementById("dialogBox");
-  box.innerHTML = `<h1>${g.name}</h1>` + html;
+  box.innerHTML = html;
   for (const [text, action] of buttons) {
     const b = document.createElement("button");
     b.textContent = text; b.onclick = action;
@@ -187,28 +173,23 @@ function collect(g) {
   if (crystals === 4) setTimeout(() => { paused = true; document.getElementById("ending").classList.remove("hidden"); }, 2000);
 }
 
-// ----- game loop -----
 function update() {
-  // each quarter slowly fills with color once its crystal is collected
+  // a quarter fills with color once its crystal is collected
   GUARDIANS.forEach((g, i) => { if (g.collected) sat[i] = Math.min(1, sat[i] + 0.01); });
   if (paused) return;
-
   let nx = player.x, ny = player.y;
   if (keys.ArrowLeft) nx -= 3;
   if (keys.ArrowRight) nx += 3;
   if (keys.ArrowUp) ny -= 3;
   if (keys.ArrowDown) ny += 3;
-  // blocked by trees and guardians
-  const tile = MAP[Math.floor(ny / TILE)][Math.floor(nx / TILE)];
-  if (tile !== "T" && !GUARDIANS.some(g => g.x === Math.floor(nx / TILE) && g.y === Math.floor(ny / TILE)))
-    { player.x = nx; player.y = ny; }
+  const tx = Math.floor(nx / TILE), ty = Math.floor(ny / TILE);
+  if (MAP[ty][tx] !== "T" && !GUARDIANS.some(g => g.x === tx && g.y === ty)) { player.x = nx; player.y = ny; }
 }
 
 function draw() {
-  // tiles
   for (let y = 0; y < 12; y++) for (let x = 0; x < 16; x++) {
     const s = sat[quarter(x, y)];
-    ctx.fillStyle = fade((x + y) % 2 ? "#69bd45" : "#5fae3d", s);
+    ctx.fillStyle = fade("#69bd45", s);
     ctx.fillRect(x * TILE, y * TILE, TILE, TILE);
     if (MAP[y][x] === "T") {
       ctx.fillStyle = fade("#2e8b3a", s);
@@ -217,11 +198,8 @@ function draw() {
     if (MAP[y][x] === "f") {
       ctx.fillStyle = fade("#e84a6f", s);
       ctx.beginPath(); ctx.arc(x * TILE + 24, y * TILE + 24, 7, 0, 7); ctx.fill();
-      ctx.fillStyle = fade("#ffe14a", s);
-      ctx.beginPath(); ctx.arc(x * TILE + 24, y * TILE + 24, 3, 0, 7); ctx.fill();
     }
   }
-  // guardians and their crystals
   for (const g of GUARDIANS) {
     const cx = g.x * TILE + 24, cy = g.y * TILE + 24;
     ctx.fillStyle = fade(g.color, Math.max(0.6, sat[quarter(g.x, g.y)]));
@@ -234,14 +212,12 @@ function draw() {
       ctx.lineTo(cx, cy - 22); ctx.lineTo(cx - 7, cy - 30); ctx.fill();
     }
   }
-  // player
   ctx.fillStyle = player.color;
   ctx.fillRect(player.x - 9, player.y - 6, 18, 22);              // body
   ctx.fillStyle = "#f1c27d";
   ctx.beginPath(); ctx.arc(player.x, player.y - 12, 8, 0, 7); ctx.fill();
-  // hint when near a guardian
   if (!paused && nearGuardian()) {
-    ctx.fillStyle = "#fff"; ctx.font = "16px Georgia";
+    ctx.font = "16px Georgia"; ctx.fillStyle = "#fff";
     ctx.fillText("Press E to talk", player.x - 50, player.y - 30);
   }
 }
